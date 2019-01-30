@@ -1,0 +1,48 @@
+<h1 mat-dialog-title>Importar Empresa</h1>
+<div fxLayout="column" class="example-loading-shade" fxLayoutAlign="center center" *ngIf="emProcessamento" fxLayoutGap="10px">
+  <div fxFlex="70px" fxFlexAlign="center">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div fxFlex="10px" fxFlexAlign="center">
+    &nbsp;
+  </div>
+  <div fxFlex="10px" fxFlexAlign="center">
+    &nbsp;
+  </div>
+  <div fxFlex="10px" fxFlexAlign="center">
+    &nbsp;
+  </div>
+  <div fxFlex="20px" fxFlexAlign="center">
+    <label>Aguarde...</label>
+  </div>
+</div>
+<div mat-dialog-content *ngIf="!emProcessamento">
+  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="7px" style="height: 150px;">
+    <div fxFlex="60px" style="width: 350px" fxFlexAlign="start">
+      <mat-form-field style="width:100%">
+        <input matInput tabindex="2" [(ngModel)]="app_key" #appkey maxlength="60" [formControl]="valAppKey" placeholder="App Key ERP Omie"
+          required>
+        <mat-hint align="end">{{appkey.value?.length || 0}}/60</mat-hint>
+        <mat-error *ngIf="valAppKey.invalid">{{getErrorMessage(valAppKey)}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div fxFlex="60px" style="width: 350px" fxFlexAlign="start">
+      <mat-form-field style="width:100%">
+        <input matInput tabindex="2" [(ngModel)]="app_secret" #appsecret maxlength="60" [formControl]="valAppSecret"
+          placeholder="App Secret ERP Omie" required>
+        <mat-hint align="end">{{appsecret.value?.length || 0}}/60</mat-hint>
+        <mat-error *ngIf="valAppSecret.invalid">{{getErrorMessage(valAppSecret)}}</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions *ngIf="!emProcessamento" style="height: 30px;">
+  <div fxLayout="row" fxLayoutAlign="end center" fxFill style="height: 40px;">
+    <button mat-raised-button color="primary" (click)="onEntrarClick(data)" tabindex="2" [disabled]="((valAppKey.invalid)||(valAppSecret.invalid)||(emProcessamento))">Importar</button>
+    <button mat-raised-button color="primary" (click)="onNoClick()" tabindex="-1">Cancelar</button>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center center" fxFill *ngIf="erroLogin" style="height: 40px;">
+    <mat-error *ngIf="erroLogin">{{msgErroLogin}}</mat-error>
+    <!-- &nbsp; -->
+  </div>
+</div>

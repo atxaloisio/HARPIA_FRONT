@@ -1,0 +1,104 @@
+<form #postotrabalhoForm="ngForm">
+  <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="1px">
+    <div fxFlex="140px" style="padding: 10px;" fxLayoutGap="10px">
+      <div fxLayout="column" fxLayoutAlign="space-between center" fxLayoutGap="5px" style="height: 100%">
+        <div fxFlex="80%" fxFlexFill fxFlexAlign="center">
+          <button id="btnSalvar" mat-raised-button color="primary" style="width: 100%; margin-bottom:5px" (click)="btnSalvar_click(postotrabalhoForm)"
+            [disabled]="!postotrabalhoForm.form.valid">
+            <mat-icon>save</mat-icon>
+            <span>Salvar</span>
+          </button>
+          <button id="btnIncluir" mat-raised-button color="primary" style="width: 100%; margin-bottom:5px" (click)="btnIncluir_click(postotrabalhoForm)"
+            *ngIf="exibeIncluir">
+            <mat-icon>insert_drive_file</mat-icon>
+            <span>Incluir</span>
+          </button>
+        </div>
+        <div fxFlex="40px" fxFlexFill fxFlexAlign="end">
+
+          <a routerLink="/postostrabalho" mat-raised-button color="primary" style="width: 120px; margin-bottom:5px">
+            <mat-icon>close</mat-icon>
+            <span>Fechar</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="90%">
+      <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
+        <div fxFlex="50px" fxFlexAlign="start" style="padding: 10px;">
+          <button id="lblTitulo" mat-raised-button style="width: 100%" disabled>
+            <i class="fa fa-university" aria-hidden="true"></i>
+            <span>POSTO DE TRABALHO</span>
+          </button>
+        </div>
+        <div fxFlex="80%" fxFlexAlign="center">
+          <div fxLayout="column" class="frm_postotrabalho-loading-shade" fxLayoutAlign="center center" *ngIf="emProcessamento">
+            <div fxFlex="70" fxFlexAlign="center">
+              <mat-spinner></mat-spinner>
+            </div>
+            <div fxFlex="10" fxFlexAlign="center">
+              &nbsp;
+            </div>
+            <div fxFlex="20" fxFlexAlign="center">
+              <label>Aguarde...</label>
+            </div>
+          </div>
+          <mat-card *ngIf="!emProcessamento" style="width: 600px;">
+            <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="5px">
+              <div fxFlex="60px" fxFlexAlign="start">
+                <mat-form-field class="frm_postotrabalho_codigo">
+                  <input matInput #codigo maxlength="9" type="number" tabindex="-1" placeholder="Código" disabled id="codigo"
+                    name="codigo" [(ngModel)]="postotrabalho.id">
+                  <!-- <mat-hint align="end">{{codigo.value?.length || 0}}/9</mat-hint>
+                <mat-error *ngIf="valCodigo.invalid">{{getCodigoErrorMessage()}}</mat-error> -->
+                </mat-form-field>
+              </div>
+              <div fxFlex="60px" fxFlexAlign="start">
+                <mat-form-field class="frm_postotrabalho_descricao">
+                  <input matInput uppercase autofocus #focuscomp maxlength="50" id="descricao" name="descricao"
+                    placeholder="Descrição" required tabindex="1" [(ngModel)]="postotrabalho.descricao" autofocus
+                    #descricao="ngModel">
+                  <mat-hint align="end">{{descricao.value?.length || 0}}/50</mat-hint>
+                  <mat-error *ngIf="descricao.invalid && (descricao.dirty || descricao.touched)">{{getDescricaoErrorMessage(descricao)}}</mat-error>
+                </mat-form-field>
+              </div>
+              <!-- <div fxFlex="1px" class="customHrFull"></div> -->
+              <!-- <div fxFlex="25px" fxFlexAlign="start">
+              <label>Tipo de Atividade</label>
+            </div> -->
+              <div fxFlex="60px" fxFlexAlign="start">
+
+                <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="30px">
+                  <!-- <div fxFlex="100%" fxFlexAlign="start" fxFlexFill>
+                    <mat-radio-group [(ngModel)]="postotrabalho.id_tipo_atividade" [value]="postotrabalho.id_tipo_atividade" style="width: 100%">
+                        <mat-radio-button *ngFor="let tipoatividade of tipoatividades" [value]="tipoatividade.id">
+                          {{tipoatividade.descricao}} &nbsp;&nbsp;&nbsp;
+                        </mat-radio-button>
+                      </mat-radio-group>
+                </div> -->
+
+
+                  <!-- <div fxFlex="130px" fxFlexAlign="end" fxFlexFill>
+                    <mat-checkbox [ngModel]="postotrabalho.armazenador" [checked]="postotrabalho.armazenador"  (change)="chkArmazenador_change($event)" >Armazenador</mat-checkbox>
+                </div>
+                <div fxFlex="130px" fxFlexAlign="end" fxFlexFill>
+                    <mat-checkbox [ngModel]="postotrabalho.destinador" [checked]="postotrabalho.destinador"  (change)="chkDestinador_change($event)" >Destinador</mat-checkbox>
+                </div>
+                <div fxFlex="130px" fxFlexAlign="end" fxFlexFill>
+                    <mat-checkbox [ngModel]="postotrabalho.transportador" [checked]="postotrabalho.transportador" (change)="chkTransportador_change($event)" >Transportador</mat-checkbox>
+                </div>
+                <div fxFlex="130px" fxFlexAlign="end" fxFlexFill>
+                    <mat-checkbox [ngModel]="postotrabalho.outras" [checked]="postotrabalho.outras" (change)="chkOutras_change($event)" >Outras</mat-checkbox>
+                </div> -->
+
+                </div>
+              </div>
+
+            </div>
+          </mat-card>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</form>

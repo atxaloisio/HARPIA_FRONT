@@ -1,0 +1,107 @@
+<form #userForm="ngForm">
+  <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="1px">
+    <div fxFlex="140px" style="padding: 10px;" fxLayoutGap="10px">
+      <div fxLayout="column" fxLayoutAlign="space-between center" fxLayoutGap="5px" style="height: 100%">
+        <div fxFlex="80%" fxFlexFill fxFlexAlign="center">
+          <button id="btnSalvar" mat-raised-button color="primary" style="width: 100%; margin-bottom:5px" (click)="btnSalvar_click(userForm)"
+            [disabled]="!userForm.form.valid">
+            <mat-icon>save</mat-icon>
+            <span>Salvar</span>
+          </button>
+          <button id="btnIncluir" mat-raised-button color="primary" style="width: 100%; margin-bottom:5px" (click)="btnIncluir_click(userForm)"
+            *ngIf="exibeIncluir">
+            <mat-icon>insert_drive_file</mat-icon>
+            <span>Incluir</span>
+          </button>
+        </div>
+        <div fxFlex="40px" fxFlexFill fxFlexAlign="end">
+          <a routerLink="/users" mat-raised-button color="primary" style="width: 120px">
+            <mat-icon>close</mat-icon>
+            <span>Fechar</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="90%">
+      <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
+        <div fxFlex="50px" fxFlexAlign="start" style="padding: 10px;">
+          <button id="lblTitulo" mat-raised-button style="width: 100%" disabled>
+            <i class="fa fa-user" aria-hidden="true"></i> <span>USUÁRIO</span>
+          </button>
+        </div>
+        <div fxFlex="80%" fxFlexAlign="center">
+          <div fxLayout="column" class="frm_user-loading-shade" fxLayoutAlign="center center" *ngIf="emProcessamento">
+            <div fxFlex="70" fxFlexAlign="center">
+              <mat-spinner></mat-spinner>
+            </div>
+            <div fxFlex="10" fxFlexAlign="center">&nbsp;</div>
+            <div fxFlex="20" fxFlexAlign="center">
+              <label>Aguarde...</label>
+            </div>
+          </div>
+          <mat-card *ngIf="!emProcessamento" style="width: 360px;">
+            <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="5px">
+              <div fxFlex="60px" style="width: 350px" fxFlexAlign="start">
+                <mat-form-field style="width:100%">
+                  <input matInput appFocus uppercase tabindex="1" [(ngModel)]="user.name" #nomeusuario maxlength="60"
+                    [formControl]="valNome" placeholder="Nome" required autofocus />
+                  <mat-hint align="end">{{ nomeusuario.value?.length || 0 }}/60</mat-hint>
+                  <mat-error *ngIf="valNome.invalid">{{
+                    getErrorMessage(valNome)
+                    }}</mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="60px" style="width: 350px" fxFlexAlign="start">
+                <mat-form-field style="width:100%">
+                  <input matInput tabindex="2" [(ngModel)]="user.email" [formControl]="valEmail" placeholder="E-Mail"
+                    required />
+                  <mat-error *ngIf="valEmail.invalid">{{
+                    getErrorMessage(valEmail)
+                    }}</mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="60px" style="width: 350px" fxFlexAlign="start">
+                <mat-form-field style="width:100%">
+                  <input matInput tabindex="3" [(ngModel)]="user.password" [formControl]="valPassword" placeholder="Senha"
+                    required [type]="hide ? 'password' : 'text'" />
+                  <mat-icon matSuffix (click)="hide = !hide">{{
+                    hide ? 'visibility' : 'visibility_off'
+                    }}</mat-icon>
+                  <mat-error *ngIf="valPassword.invalid">{{
+                    getErrorMessage(valPassword)
+                    }}</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="60px" style="width: 350px" fxFlexAlign="start">
+                <mat-form-field style="width:100%">
+                  <input matInput tabindex="4" [(ngModel)]="user.confpassword" [formControl]="valConfPassword"
+                    placeholder="Confirmar Senha" required [type]="hide ? 'password' : 'text'" />
+                  <mat-icon matSuffix (click)="hide = !hide">{{
+                    hide ? 'visibility' : 'visibility_off'
+                    }}</mat-icon>
+                  <mat-error *ngIf="valConfPassword.invalid">{{
+                    getErrorMessage(valConfPassword)
+                    }}</mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="60px" fxFlexAlign="start" style="width: 350px">
+                <mat-form-field style="width:100%">
+                  <mat-select placeholder="Perfil" [(ngModel)]="user.id_perfil" tabindex="5" required [formControl]="valPerfil"
+                    id="perfil" name="perfil">
+                    <mat-option *ngFor="let perfil of perfis" [value]="perfil.id">
+                      {{ perfil.descricao }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="valPerfil.invalid">{{
+                    getErrorMessage(valPerfil)
+                    }}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
