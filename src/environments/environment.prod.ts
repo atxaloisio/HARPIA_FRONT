@@ -1,9 +1,9 @@
 export const environment = {
   production: true,
-  urlbase: 'http://SIH.atratec.com.br'
+  urlbase: 'http://SIH.localhost'
 };
 
 // export const environment = {
 //   production: true,
-//   urlbase: 'http://SIH.localhost'
+//   urlbase: 'http://SIH.atratec.com.br'
 // };
